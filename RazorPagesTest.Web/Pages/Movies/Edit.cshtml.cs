@@ -43,7 +43,9 @@ namespace RazorPagesTest.Web.Pages.Movies
                 return Page();
             }
 
-            _context.Attach(MovieModel).State = EntityState.Modified;
+            var movie = MovieModel.ToMovie();
+
+            _context.Attach(movie).State = EntityState.Modified;
 
             try
             {
@@ -51,7 +53,7 @@ namespace RazorPagesTest.Web.Pages.Movies
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieExists(MovieModel.Id))
+                if (!MovieExists(movie.Id))
                 {
                     return NotFound();
                 }

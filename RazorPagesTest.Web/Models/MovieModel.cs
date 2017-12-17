@@ -18,6 +18,8 @@ namespace RazorPagesTest.Web.Models
 
         public decimal Price { get; set; }
 
+        public string Rating { get; set; }
+
         public static MovieModel FromMovie(Movie movie)
         {
             if (movie == null)
@@ -31,7 +33,8 @@ namespace RazorPagesTest.Web.Models
                 Title = movie.Title,
                 ReleaseDate = movie.ReleaseDate,
                 Genre = movie.Genre,
-                Price = movie.Price
+                Price = movie.Price,
+                Rating = movie.Rating
             };
         }
 
@@ -43,7 +46,8 @@ namespace RazorPagesTest.Web.Models
                 Title = Title,
                 ReleaseDate = ReleaseDate,
                 Genre = Genre,
-                Price = Price
+                Price = Price,
+                Rating = Rating
             };
         }
     }
