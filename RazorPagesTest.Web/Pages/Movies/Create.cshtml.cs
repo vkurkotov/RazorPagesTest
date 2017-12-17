@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPagesTest.DataLayer.Models;
+using RazorPagesTest.Web.Models;
 
 namespace RazorPagesTest.Web.Pages.Movies
 {
@@ -24,7 +25,7 @@ namespace RazorPagesTest.Web.Pages.Movies
         }
 
         [BindProperty]
-        public Movie Movie { get; set; }
+        public MovieModel MovieModel { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -33,7 +34,7 @@ namespace RazorPagesTest.Web.Pages.Movies
                 return Page();
             }
 
-            _context.Movies.Add(Movie);
+            _context.Movies.Add(MovieModel.ToMovie());
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

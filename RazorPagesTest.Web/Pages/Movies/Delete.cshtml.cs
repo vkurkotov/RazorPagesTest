@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesTest.DataLayer.Models;
+using RazorPagesTest.Web.Models;
 
 namespace RazorPagesTest.Web.Pages.Movies
 {
@@ -19,7 +20,7 @@ namespace RazorPagesTest.Web.Pages.Movies
         }
 
         [BindProperty]
-        public Movie Movie { get; set; }
+        public MovieModel MovieModel { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +29,9 @@ namespace RazorPagesTest.Web.Pages.Movies
                 return NotFound();
             }
 
-            Movie = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id);
+            MovieModel = MovieModel.FromMovie(await _context.Movies.SingleOrDefaultAsync(m => m.Id == id));
 
-            if (Movie == null)
+            if (MovieModel == null)
             {
                 return NotFound();
             }
@@ -44,11 +45,11 @@ namespace RazorPagesTest.Web.Pages.Movies
                 return NotFound();
             }
 
-            Movie = await _context.Movies.FindAsync(id);
+            MovieModel = MovieModel.FromMovie(await _context.Movies.FindAsync(id));
 
-            if (Movie != null)
+            if (MovieModel != null)
             {
-                _context.Movies.Remove(Movie);
+                _context.Movies.Remove(MovieModel.ToMovie());
                 await _context.SaveChangesAsync();
             }
 

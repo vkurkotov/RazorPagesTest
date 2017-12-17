@@ -1,4 +1,4 @@
-@page
+@page "{id:int?}"
 @model RazorPagesTest.Web.Pages.Movies.DeleteModel
 
 @{
@@ -13,31 +13,31 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Movie.Title)
+            @Html.DisplayNameFor(model => model.MovieModel.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Movie.Title)
+            @Html.DisplayFor(model => model.MovieModel.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Movie.ReleaseDate)
+            @Html.DisplayNameFor(model => model.MovieModel.ReleaseDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Movie.ReleaseDate)
+            @Html.DisplayFor(model => model.MovieModel.ReleaseDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Movie.Genre)
+            @Html.DisplayNameFor(model => model.MovieModel.Genre)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Movie.Genre)
+            @Html.DisplayFor(model => model.MovieModel.Genre)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Movie.Price)
+            @Html.DisplayNameFor(model => model.MovieModel.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Movie.Price)
+            @Html.DisplayFor(model => model.MovieModel.Price)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Movie.Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |

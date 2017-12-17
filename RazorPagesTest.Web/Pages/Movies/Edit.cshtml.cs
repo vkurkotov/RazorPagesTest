@@ -1,26 +1,24 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesTest.DataLayer.Models;
+using RazorPagesTest.Web.Models;
 
 namespace RazorPagesTest.Web.Pages.Movies
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPagesTest.DataLayer.Models.MovieContext _context;
+        private readonly MovieContext _context;
 
-        public EditModel(RazorPagesTest.DataLayer.Models.MovieContext context)
+        public EditModel(MovieContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Movie Movie { get; set; }
+        public MovieModel MovieModel { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,9 +27,9 @@ namespace RazorPagesTest.Web.Pages.Movies
                 return NotFound();
             }
 
-            Movie = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id);
+            MovieModel = MovieModel.FromMovie(await _context.Movies.SingleOrDefaultAsync(m => m.Id == id));
 
-            if (Movie == null)
+            if (MovieModel == null)
             {
                 return NotFound();
             }
@@ -45,7 +43,7 @@ namespace RazorPagesTest.Web.Pages.Movies
                 return Page();
             }
 
-            _context.Attach(Movie).State = EntityState.Modified;
+            _context.Attach(MovieModel).State = EntityState.Modified;
 
             try
             {
@@ -53,14 +51,11 @@ namespace RazorPagesTest.Web.Pages.Movies
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieExists(Movie.Id))
+                if (!MovieExists(MovieModel.Id))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return RedirectToPage("./Index");
